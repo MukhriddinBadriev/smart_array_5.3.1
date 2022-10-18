@@ -4,10 +4,11 @@ class smart_array {
 public:
 	smart_array(int size) {
 		size_ = size;
-		s_m = new int(size_);	
+		s_m = new int(size_);
+		capacity = size_;
 	}
 	int add_element(int element) {
-		if (capacity == size_) {
+		if (size_ == capacity) {
 			size_ *= 2;
 			int* tmp = new int[size_];
 			for (int i = 0; i < capacity; ++i) {
@@ -21,8 +22,8 @@ public:
 		return element;
 	}
 	int get_element(int id) {
-		if (id >= size_) {
-			throw std::exception();
+		if (id >= capacity) {
+			throw std::exception("wrong index");
 		}
 		return s_m[id];
 	}
@@ -43,7 +44,7 @@ int main(){
 		arr.add_element(155);
 		arr.add_element(14);
 		arr.add_element(15);
-		std::cout << arr.get_element(1) << std::endl;
+		std::cout << arr.get_element(8) << std::endl;
 	}
 	catch (const std::exception& ex) {
 		std::cout << ex.what() << std::endl;
