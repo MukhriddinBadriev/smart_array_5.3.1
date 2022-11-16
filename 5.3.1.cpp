@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <exception>
+
 class smart_array {
 public:
 	smart_array(int size) {
@@ -16,8 +17,9 @@ public:
 			}
 			delete[]s_m;
 			s_m = tmp;
+			++size_;
 		}
-		if (i < size_)s_m[i] = element;
+		s_m[i] = element;
 		i++;
 		return element;
 	}
@@ -44,6 +46,7 @@ int main(){
 		arr.add_element(155);
 		arr.add_element(14);
 		arr.add_element(15);
+		
 		std::cout << arr.get_element(1) << std::endl;
 	}
 	catch (const std::exception& ex) {
