@@ -2,33 +2,38 @@
 #include <exception>
 
 class smart_array {
+
 public:
 	smart_array(int size) {
 		size_ = size;
 		s_m = new int[size_];
 		capacity = size_;
+		Msize = size_;
 	}
+
 	int add_element(int element) {
-		if (size_ == capacity) capacity *= 2;
-		else if(size_<capacity){
+		if (Msize == capacity) capacity *= 2;
+		else if(Msize<capacity){
 			int* tmp = new int[size_];
 			for (int j = 0; j < size_; ++j) {
 				tmp[j] = s_m[j];
 			}
 			delete[]s_m;
 			s_m = tmp;
-			++size_;
+			Msize=size_+i;
 		}
 		s_m[i] = element;
 		i++;
 		return element;
 	}
+
 	int get_element(int id) {
 		if (id >= size_) {
 			throw std::exception("wrong index");
 		}
 		return s_m[id];
 	}
+
 	~smart_array() {
 		delete[] s_m;
 	}
@@ -37,6 +42,7 @@ private:
 	int size_ = 0;
 	int capacity = 0;
 	int i = 0;
+	int Msize = 0;
 };
 int main(){
 	try {
