@@ -5,30 +5,30 @@ class smart_array {
 
 public:
 	smart_array(int size) {
-		size_ = size;
-		s_m = new int[size_];
-		capacity = size_;
-		Msize = size_;
+		s_m = new int[size];
+		capacity = size;
 	}
 
 	int add_element(int element) {
-		if (Msize == capacity) capacity *= 2;
-		else if(Msize<capacity){
-			int* tmp = new int[size_];
-			for (int j = 0; j < size_; ++j) {
+		if (i == capacity) {
+			capacity *= 2;
+			int* tmp = new int[capacity];
+			for (int j = 0; j < i; j++) {
 				tmp[j] = s_m[j];
 			}
 			delete[]s_m;
 			s_m = tmp;
-			Msize=size_+i;
 		}
-		s_m[i] = element;
-		i++;
+		if (i < capacity) {
+			s_m[i] = element;
+			i++;
+		}
+		
 		return element;
 	}
 
 	int get_element(int id) {
-		if (id >= size_) {
+		if (id >= capacity) {
 			throw std::exception("wrong index");
 		}
 		return s_m[id];
@@ -39,10 +39,8 @@ public:
 	}
 private:
 	int* s_m=nullptr;
-	int size_ = 0;
 	int capacity = 0;
 	int i = 0;
-	int Msize = 0;
 };
 int main(){
 	try {
@@ -54,6 +52,7 @@ int main(){
 		arr.add_element(15);
 		
 		std::cout << arr.get_element(1) << std::endl;
+		
 	}
 	catch (const std::exception& ex) {
 		std::cout << ex.what() << std::endl;
